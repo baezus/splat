@@ -1,11 +1,20 @@
+//express setup
 const express = require('express');
 const app = express();
 const http = require('http');
 const server = http.createServer(app);
 
+//socket.io setup
+const { Server } = require('socket.io');
+const io = new Server(server);
+
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
   
+});
+
+io.on('connection', (socket) => {
+  console.log('someone has connected!');
 });
 
 server.listen(2737, () => {
